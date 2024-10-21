@@ -12,8 +12,8 @@ export class ProductManager {
   }
 
   removeProduct(id: number): void {
-    const initialLength = this.products.length; // Store the initial length
-    this.products = this.products.filter((product) => product.id !== id); // Filter out the product
+    const initialLength = this.products.length;
+    this.products = this.products.filter((product) => product.id !== id);
     if (this.products.length < initialLength) {
       console.log(`Product with ID ${id} removed successfully!`);
     } else {
@@ -21,11 +21,23 @@ export class ProductManager {
     }
   }
 
-  searchProduct(id: number) {
-    console.log(this.products.find((product) => product.id === id));
-  }
+  // searchProduct(id: number) {
+  //   console.log(this.products.find((product) => product.id === id));
+  // }
 
   searchProductByCategory(category: string): Product[] {
     return this.products.filter((product) => product.category === category);
+  }
+
+  updateProduct(id:number, updatedFields:Partial<Product>):void{
+    const product_index = 
+    this.products.findIndex((product)=>product.id === id);
+
+    if(product_index !== -1){
+      this.products[product_index] = {...this.products[product_index],...updatedFields};
+      console.log(`product with ID ${id} updated`);
+    }else{
+      console.log(`Product with ID ${id} not found`);
+    }
   }
 }
